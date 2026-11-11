@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class playerMovement : MonoBehaviour
 {
@@ -7,7 +8,6 @@ public class playerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     public Animator animator;
-    private Vector2 movement;
     public bool spriteFlip = false;
     public bool knockedBack = false;
     private bool Dead = false;
@@ -22,6 +22,7 @@ public class playerMovement : MonoBehaviour
     private Health health;
     public ParticleSystem runParticle;
 
+    private Vector2 movementInput;
 
     // Start is called before the first frame update
     void Start()
@@ -40,30 +41,39 @@ public class playerMovement : MonoBehaviour
         if (playerCombat.isAttacking) return;
         if (!isDodging){
 
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+            rb.linearVelocity = new Vector2(movementInput.x * moveSpeed, movementInput.y * moveSpeed);
         }
-       
-        rb.velocity = new Vector2(movement.x * moveSpeed, movement.y * moveSpeed);
 
-        if (rb.velocity != Vector2.zero)
+        if (rb.linearVelocity != Vector2.zero)
         {
             runParticle.Play();
         }
-        
        
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDodge)
-        {
-            StartCoroutine(Dodge());
-        }
+        //if (Input.GetKeyDown(KeyCode.LeftShift) && canDodge)
+        //{
+        //    StartCoroutine(Dodge());
+        //}
 
         runningAnimations();
 
     }
 
+    public void OnMove(InputValue value)
+    {
+        movementInput = value.Get<Vector2>();
+    }
+
+    public void onDodge(InputValue value)
+    {
+        if (value.isPressed && canDodge)
+        {
+            StartCoroutine(Dodge());
+        }
+    }
+
     public void Die(){
         Debug.Log("Player has died");
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         Dead = true;
     }
 
@@ -71,7 +81,7 @@ public class playerMovement : MonoBehaviour
     private void runningAnimations(){
         var particleDirection = runParticle.velocityOverLifetime;
 
-        if (movement.x > 0)
+        if (movementInput.x > 0)
         {
             spriteRenderer.flipX = false;
             //spriteFlip = false;
@@ -79,7 +89,7 @@ public class playerMovement : MonoBehaviour
             runParticle.transform.localPosition = new Vector3(-0.25f, runParticle.transform.localPosition.y, 0);
 
         }
-        else if (movement.x < 0)
+        else if (movementInput.x < 0)
         {
             spriteRenderer.flipX = true;
             //spriteFlip = true;
@@ -88,7 +98,7 @@ public class playerMovement : MonoBehaviour
 
         }
 
-        if (movement.x != 0 || movement.y != 0)
+        if (movementInput.x != 0 || movementInput.y != 0)
         {
             animator.SetBool("Running", true);
         }
@@ -112,18 +122,18 @@ public class playerMovement : MonoBehaviour
 
         }
 
-        Vector2 dodgeDirection = movement.normalized;
+        Vector2 dodgeDirection = movementInput.normalized;
 
         float elapsedTime = 0f;
         while (elapsedTime < dodgeDuration)
         {
-            rb.velocity = dodgeDirection * dodgeSpeed;
+            rb.linearVelocity = dodgeDirection * dodgeSpeed;
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         isDodging = false;
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
 
         yield return new WaitForSeconds(dodgeCooldown);
         canDodge = true;

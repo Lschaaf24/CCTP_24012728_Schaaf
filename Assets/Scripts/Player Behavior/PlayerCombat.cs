@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class PlayerCombat : MonoBehaviour
@@ -50,19 +48,19 @@ public class PlayerCombat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("k") && Time.time >= lastAttackTime + stats.attackCooldown)
-        {
-            Attack();
-        }
+        //if (Input.GetKeyDown("k") && Time.time >= lastAttackTime + stats.attackCooldown)
+        //{
+        //    Attack();
+        //}
 
-        if (Input.GetKeyDown("j") && canParry)
-        {
-            animator.SetTrigger("Parry");
-            StartCoroutine(parryRoutine()); 
-        }
+        //if (Input.GetKeyDown("j") && canParry)
+        //{
+        //    animator.SetTrigger("Parry");
+        //    StartCoroutine(parryRoutine()); 
+        //}
     }
 
-    void Attack()
+    public void OnAttack(InputValue value)
     {
         lastAttackTime = Time.time;
         animator.SetTrigger("Attack");
@@ -87,6 +85,15 @@ public class PlayerCombat : MonoBehaviour
             }
         }
         isAttacking = false;
+    }
+
+    public void OnParry(InputValue value)
+    {
+        if (value.isPressed && canParry)
+        {
+            animator.SetTrigger("Parry");
+            StartCoroutine(parryRoutine());
+        }
     }
 
     public IEnumerator parryRoutine()

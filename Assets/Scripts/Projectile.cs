@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour
 
     void Update()
     {
-        rb.velocity = direction * speed;
+        rb.linearVelocity = direction * speed;
 
         rb.rotation = angle - 90f;
         

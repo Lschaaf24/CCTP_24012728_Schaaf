@@ -72,7 +72,7 @@ public class EnemyMovement : MonoBehaviour
 
             if (distanceToPlayer > enemyCombat.stats.attackRange && distanceToPlayer < detectionRadius)
             {
-                rb.velocity = direction * speed;
+                rb.linearVelocity = direction * speed;
                 animator.SetBool("Running", true);
 
                 if (direction.x > 0f)
@@ -93,7 +93,7 @@ public class EnemyMovement : MonoBehaviour
             }
             else
             {
-                rb.velocity = Vector2.zero;
+                rb.linearVelocity = Vector2.zero;
                 animator.SetBool("Running", false);
             }
         }
