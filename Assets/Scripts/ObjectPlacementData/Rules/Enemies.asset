@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2e6a3e5ee20e4753b083005bd9f708b, type: 3}
+  m_Name: Enemies
+  m_EditorClassIdentifier: 
+  roomType: 3
+  minObjects: 4
+  maxObjects: 10
+  weight: 5
+  spawnablePrefabs:
+  - {fileID: 3337852735788400915, guid: 2cc828653ddeb403d9d2bd2608c46a06, type: 3}
+  - {fileID: 5007732021314954132, guid: 302117862449c4bf8bf5224493c58c3d, type: 3}
+  - {fileID: 2874625625027088355, guid: c0118dd8538c141b3bcc87957f3f1afd, type: 3}
+  - {fileID: 7468135177755998299, guid: 998733d66ae484100b8dc4d15734afd9, type: 3}
+  - {fileID: 251195172744589396, guid: ee115c175c64a4fd6878607f3838b078, type: 3}
+  enemyCount: 3
+  enemyPrefabs:
+  - {fileID: 7300217725462879887, guid: dd67ee0af2c304ac8acb8ba5de979cda, type: 3}

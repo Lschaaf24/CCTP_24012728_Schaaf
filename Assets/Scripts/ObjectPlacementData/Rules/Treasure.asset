@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2e6a3e5ee20e4753b083005bd9f708b, type: 3}
+  m_Name: Treasure
+  m_EditorClassIdentifier: 
+  roomType: 1
+  minObjects: 1
+  maxObjects: 1
+  weight: 2
+  spawnablePrefabs:
+  - {fileID: 1984079264985334532, guid: ec6503421289442ef92114756eec95ce, type: 3}
+  enemyCount: 5
+  enemyPrefabs:
+  - {fileID: 7300217725462879887, guid: dd67ee0af2c304ac8acb8ba5de979cda, type: 3}
