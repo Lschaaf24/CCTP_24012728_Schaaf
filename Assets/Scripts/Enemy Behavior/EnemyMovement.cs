@@ -98,7 +98,7 @@ public class EnemyMovement : MonoBehaviour
             }
         }
     }
-        public void Die(){
+    public void MovementDeath(){
         Debug.Log("Enemy died!");
         dead = true;
     }

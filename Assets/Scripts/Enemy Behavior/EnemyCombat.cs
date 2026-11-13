@@ -24,7 +24,7 @@ public class EnemyCombat : MonoBehaviour
         if (isDead) return;
         isDead = true;
 
-        GetComponent<EnemyMovement>().Die();
+        GetComponent<EnemyMovement>().MovementDeath();
     }
 
     protected bool CanAttack(float distanceToPlayer)

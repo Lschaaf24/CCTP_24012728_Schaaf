@@ -4801,8 +4801,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -550959117
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_RenderMode: 0
@@ -4991,12 +4991,12 @@ MonoBehaviour:
   attackPoint: {fileID: 9093066581264886705}
   enemyLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 4294967295
   knockback: 0.1
   knockbackDelay: 0.5
   stats: {fileID: 11400000, guid: 93bbfb697e5ee4a1b9cdb89ea71ff006, type: 2}
   isAttacking: 0
-  parryWindow: 0.1
+  parryWindow: 0.2
   parryCooldown: 1
 --- !u!50 &2102481897017883892
 Rigidbody2D:

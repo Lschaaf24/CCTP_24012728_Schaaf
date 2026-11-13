@@ -11,12 +11,13 @@ public class Health : MonoBehaviour
     public GameObject bloodParticle;
     private FollowPlayer cameraShake;
     private Rigidbody2D rb;
+
     public bool isKnockedBack = false;
     public float knockbackDuration = 0.2f;
 
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = gameObject.GetComponent<Animator>();
         rb = gameObject.GetComponent<Rigidbody2D>();
 
         if (stats != null)
@@ -33,7 +34,6 @@ public class Health : MonoBehaviour
         animator.SetTrigger("Hurt");
         cameraShake.TriggerShake();
         currentHealth -= damage;
-
 
         Instantiate(bloodParticle, transform.position, Quaternion.identity);
 

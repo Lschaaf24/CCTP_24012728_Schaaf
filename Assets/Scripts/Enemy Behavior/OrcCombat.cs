@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class OrcCombat : EnemyCombat
 {
-    public Transform attackPoint;
-    public LayerMask playerLayers;
+    [SerializeField]private Transform attackPoint;
+    [SerializeField] private LayerMask playerLayers;
     private EnemyHealthBar enemyHealthBar;
-    public GameObject parryParticle;
+    [SerializeField] private GameObject parryParticle;
     private Animator animator;
     // Start is called before the first frame update
     void Start()
@@ -37,23 +37,27 @@ public class OrcCombat : EnemyCombat
 
         foreach (Collider2D hit in hitPlayer)
         {
+            Debug.Log("Player hit");
             PlayerCombat playerCombat = hit.GetComponent<PlayerCombat>();
 
-            if (playerCombat.isParryActive())
+            if(playerCombat != null)
             {
-                animator.SetTrigger("Stun");
-                playerCombat.parryRoutine();
-                Instantiate(parryParticle, attackPoint.position, Quaternion.identity);
-            }
-            else
-            {
-                Health playerHealth = hit.GetComponent<Health>();
-                playerHealth.TakeDamage(stats.attackDamage, transform);
+                if (playerCombat.isParryActive())
+                {
+                    animator.SetTrigger("Stun");
+                    Instantiate(parryParticle, attackPoint.position, Quaternion.identity);
+                }
+                else
+                {
+                    Health playerHealth = hit.GetComponent<Health>();
+                    playerHealth.TakeDamage(stats.attackDamage, transform);
 
-                GameObject healthBarObject = GameObject.FindGameObjectWithTag("HealthBar");
-                HealthBar healthBar = healthBarObject.GetComponent<HealthBar>();
-                healthBar.setHealth(playerHealth.currentHealth);
+                    GameObject healthBarObject = GameObject.FindGameObjectWithTag("HealthBar");
+                    HealthBar healthBar = healthBarObject.GetComponent<HealthBar>();
+                    healthBar.setHealth(playerHealth.currentHealth);
+                }
             }
+
             
         }
     }
