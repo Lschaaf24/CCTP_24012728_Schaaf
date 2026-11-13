@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPlacement : MonoBehaviour
 {
-    [SerializeField]
-    private Transform objectParent;
+    [SerializeField] private Transform objectParent;
 
     public void ClearPlacedObjects()
     {

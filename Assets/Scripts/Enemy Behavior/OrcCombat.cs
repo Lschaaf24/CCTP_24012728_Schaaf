@@ -31,7 +31,7 @@ public class OrcCombat : EnemyCombat
         }
 
     }
-    void PerformAttack()
+    public void PerformAttackOrc()
     {
         Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(attackPoint.position, stats.attackRange, playerLayers);
 
@@ -57,7 +57,6 @@ public class OrcCombat : EnemyCombat
             
         }
     }
-
     void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(attackPoint.position, stats.attackRange);

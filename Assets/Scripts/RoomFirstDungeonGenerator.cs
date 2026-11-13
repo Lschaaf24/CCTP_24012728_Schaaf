@@ -19,7 +19,6 @@ public class RoomFirstDungeonGenerator : RandomWalkDungeonGenerator
     [SerializeField] private List<RoomRule> weightedRoomRules;
 
     [SerializeField] private GameObject playerPrefab;
-    private GameObject playerInstance;
     private BoundsInt spawnBounds;
     private BoundsInt bossBounds;
 
@@ -50,13 +49,13 @@ public class RoomFirstDungeonGenerator : RandomWalkDungeonGenerator
         Vector3 playerSpawnPos = new Vector3(spawnBounds.center.x + 0.5f, spawnBounds.center.y + 0.5f, 0);
 
         GameObject existingPlayer = GameObject.FindGameObjectWithTag("Player");
-        if (playerInstance != null)
+        if (existingPlayer != null)
         {
             existingPlayer.transform.position = playerSpawnPos;
         }
         else
         {
-            playerInstance = Instantiate(playerPrefab, playerSpawnPos, Quaternion.identity);
+            existingPlayer = Instantiate(playerPrefab, playerSpawnPos, Quaternion.identity);
         }
 
         Vector2Int spawnCenter = roomCenters[0];

@@ -16,8 +16,8 @@ public class PlayerCombat : MonoBehaviour
     private bool isDead = false;
     public bool isAttacking = false;
 
-    public float parryWindow = 0.1f;
-    public float parryCooldown = 1.0f;
+    [SerializeField]private float parryWindow = 0.1f;
+    [SerializeField]private float parryCooldown = 1.0f;
     private bool canParry = true;
     private bool parryActive = false;
     
@@ -43,21 +43,7 @@ public class PlayerCombat : MonoBehaviour
     {
         if (isDead) return;
         isDead = true;
-        playerMovement.Die();
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        //if (Input.GetKeyDown("k") && Time.time >= lastAttackTime + stats.attackCooldown)
-        //{
-        //    Attack();
-        //}
-
-        //if (Input.GetKeyDown("j") && canParry)
-        //{
-        //    animator.SetTrigger("Parry");
-        //    StartCoroutine(parryRoutine()); 
-        //}
+        playerMovement.MovementDeath();
     }
 
     public void OnAttack(InputValue value)
@@ -68,19 +54,30 @@ public class PlayerCombat : MonoBehaviour
 
     }
 
-    void PerformAttack()
+    public void PerformAttackPlayer()
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, stats.attackRange, enemyLayers);
+        if(hitEnemies.Length == 0)
+        {
+            Debug.Log("No enemies hit");
+        }
+
 
         foreach (Collider2D enemy in hitEnemies)
         {
             Health enemyHealth = enemy.GetComponent<Health>();
+            if(enemyHealth == null)
+            {
+                Debug.Log("Enemy does not have a Health component.");
+            }
+
 
             enemyHealth.TakeDamage(stats.attackDamage, transform);
 
             EnemyHealthBar enemyHealthBar = enemy.GetComponentInChildren<EnemyHealthBar>();
             if (enemyHealthBar != null)
             {
+                Debug.Log("enemy hit");
                 enemyHealthBar.setHealth(enemyHealth.currentHealth);
             }
         }

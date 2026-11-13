@@ -4,10 +4,10 @@ using UnityEngine.InputSystem;
 
 public class playerMovement : MonoBehaviour
 {
-    public float moveSpeed = 3f; //Movement speed of player
+    [SerializeField] private float moveSpeed = 3f; //Movement speed of player
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
-    public Animator animator;
+    [SerializeField] private Animator animator;
     public bool spriteFlip = false;
     public bool knockedBack = false;
     private bool Dead = false;
@@ -49,10 +49,6 @@ public class playerMovement : MonoBehaviour
             runParticle.Play();
         }
        
-        //if (Input.GetKeyDown(KeyCode.LeftShift) && canDodge)
-        //{
-        //    StartCoroutine(Dodge());
-        //}
 
         runningAnimations();
 
@@ -63,15 +59,15 @@ public class playerMovement : MonoBehaviour
         movementInput = value.Get<Vector2>();
     }
 
-    public void onDodge(InputValue value)
+    public void OnDodge(InputValue value)
     {
-        if (value.isPressed && canDodge)
+        if (canDodge)
         {
             StartCoroutine(Dodge());
         }
     }
 
-    public void Die(){
+    public void MovementDeath(){
         Debug.Log("Player has died");
         rb.linearVelocity = Vector2.zero;
         Dead = true;
